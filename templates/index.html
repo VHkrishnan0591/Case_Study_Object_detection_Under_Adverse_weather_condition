@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object Detection</title>
+    <link rel="stylesheet" href="static/style.css" type = 'text/css'>
+</head>
+<body>
+    <h1>Object Detection Under Adverse Weather Conditions</h1>
+    <div id = 'fileupload'>
+        <h2>Choose an Image:</h2>
+        <input type="file" id="fileInput" accept="image/*" hidden>
+        <label for="fileInput">Choose File</label>
+        <button id="uploadButton">Upload</button>
+    </div>
+    <div id="uploadedImageContainer">
+        <h2>Uploaded Image:</h2>
+        <img id="uploadedImage" src="" alt="Uploaded Image" style="display:none;">
+        <button id="predictButton" style="display:none;">Predict</button>
+    </div>
+    <div id="resultImagesContainer">
+        <h2>Prediction Results:</h2>
+        <div id = 'resultImages'>
+            <div id="PretrainedYOLOResults">
+                <img id="resultImage1" src="" alt="Prediction Result 1">
+                <figcaption id="PretrainedYOLO">PretrainedYOLO</figcaption>
+            </div>
+            <div id="CustomTrainedYOLOResults">
+                <img id="resultImage2" src="" alt="Prediction Result 2">
+                <figcaption id="CustomTrainedYOLO">CustomTrainedYOLO</figcaption>
+            </div>
+            
+        </div>
+        <button id = 'ResetButton'>Reset</button>
+    </div>
+
+    <!-- <div id ='button-container'>
+        <button id="uploadButton">Upload</button>
+        <button id="predictButton" style="display:none;">Predict</button>
+    </div> -->
+
+    <script>
+        document.getElementById('uploadButton').addEventListener('click', async () => {
+            const fileInput = document.getElementById('fileInput');
+            if (!fileInput.files[0]) {
+                alert('Please select a file to upload.');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+
+            // Upload the image to the server
+            const response = await fetch('/upload', {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                const uploadedImagePath = data.uploaded_image;
+                const uploadImageContainer = document.getElementById('uploadedImageContainer');
+                const fileupload = document.getElementById('fileupload');
+                fileupload.style.display = 'none';
+                uploadImageContainer.style.display = 'flex';
+
+                
+                // Show the uploaded image
+                const uploadedImage = document.getElementById('uploadedImage');
+                uploadedImage.src = uploadedImagePath;
+                // uploadedImage.style.display = 'block';
+                uploadedImage.style.display = 'flex';
+
+                // Show the Predict button
+                const predictButton = document.getElementById('predictButton');
+                //predictButton.style.display = 'inline-block';
+                predictButton.style.display = 'flex';
+            } else {
+                alert('Failed to upload the image.');
+            }
+        });
+
+        document.getElementById('predictButton').addEventListener('click', async () => {
+            // Trigger prediction on the server
+            const response = await fetch('/predict', {
+                method: 'POST',
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                const resultImages = data.prediction_images;
+                
+
+                // Show the prediction result images
+                const resultImagesContainer = document.getElementById('resultImagesContainer');
+                resultImagesContainer.style.display = 'flex';
+                document.getElementById('resultImage1').src = resultImages[0];
+                document.getElementById('resultImage2').src = resultImages[1];
+                uploadedImageContainer.style.display = 'none';
+            } else {
+                alert('Failed to generate predictions.');
+            }
+        });
+
+        document.getElementById('ResetButton').addEventListener('click', () => {
+        location.reload();
+        });
+
+    </script>
+</body>
+</html>

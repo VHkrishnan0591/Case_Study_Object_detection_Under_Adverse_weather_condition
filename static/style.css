@@ -1,0 +1,146 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+    margin: -20px;
+    min-height: 100vh;
+    background-color: aliceblue;
+    position: relative;
+    overflow: hidden; /* Ensures no extra scrollbars due to pseudo-element */
+}
+
+h1{
+    display:block;
+    margin: 20px; 
+    color:#1a1a1a;
+     /* color: aliceblue; */
+    border:  6px double black;
+    border-radius: 0.5rem;
+    padding: 0.25rem;
+    text-align: center;
+    text-shadow: 2px 2px 2px #fff;
+}
+
+#fileupload{
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center;
+    flex-direction: column;
+    margin-top: 12px;
+}
+
+#uploadedImageContainer{
+    display: none;
+    justify-content: center; /* Centers horizontally */
+    align-items: center;
+    flex-direction: column;
+    margin-top: 12px;
+}
+
+#resultImagesContainer{
+    display: none;
+    justify-content: center; /* Centers horizontally */
+    align-items: center;
+    flex-direction: column;
+    margin-top: 12px;
+}
+#resultImages{
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center;
+    gap: 12px;
+    flex-direction: row;
+    margin-top: 12px;
+}
+#PretrainedYOLOResults{
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center;
+    gap: 5px;
+    flex-direction: column;
+    margin-top: 12px;
+}
+#CustomTrainedYOLOResults{
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center;
+    gap: 5px;
+    flex-direction: column;
+    margin-top: 12px;
+}
+img {
+    border: 6px double black;
+    border-radius:0.5rem;
+    max-width: 400px;
+    margin: 10px 0;
+}
+label {
+    background-color: indigo;
+    color: white;
+    padding: 0.5rem;
+    font-family: sans-serif;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    margin-top: 1rem;
+  }
+/* button {
+    margin: 10px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #45a049;
+} */
+
+/* .button-container { */
+    /* display: flex; */
+    /* gap: 10px; Optional: spacing between buttons */
+    /* display: flex;
+    justify-content: center; /* Centers horizontally */
+    /* align-items: center;
+    flex-direction: column;
+    margin-top: 12px;
+} */ 
+
+button {
+    /* display: inline-block; */
+    padding: 12px 24px;
+    background: linear-gradient(to right, #007BFF, #245fc6); /* Gradient from pink to orange */
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 18px;
+    cursor: pointer;
+    margin: 10px auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    transition: transform 0.2s ease, background 0.3s ease;
+}
+
+button:hover {
+    background: linear-gradient(to right, #007BFF, hsl(234, 89%, 62%)); /* Reverse gradient on hover */
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 126, 95, 0.5); /* Gradient button shadow */
+}
+
+button:active {
+    transform: scale(0.95); /* Slight shrink when clicked */
+}  
+button:disabled{
+    background-color: #bdc3c7; /* Light gray background */
+    color: #7f8c8d; /* Dark gray text */
+    cursor: not-allowed; /* Change cursor to indicate the button is not clickable */
+    opacity: 0.6; /* Slightly reduce opacity to indicate it's disabled */
+
+}
